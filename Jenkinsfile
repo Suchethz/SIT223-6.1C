@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Use the configured Maven 3.9.9 in Jenkins
+        maven 'Maven 3.9.9'  // Replace with the actual name in Jenkins if different
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -13,7 +18,6 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running Unit and Integration Tests...'
-                // Use 'bat' for Windows instead of 'sh'
                 bat 'mvn test'
                 bat 'mvn verify'
             }
@@ -50,8 +54,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to Staging Environment...'
-                // If you're using Windows for deployment, adjust the deployment command here
-                // Example:
+                // Example deployment command, adjust as needed
                 bat 'scp target/your-app.jar ec2-user@staging-server:/path/to/deploy'
             }
         }
